@@ -1,4 +1,4 @@
-import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
@@ -7,7 +7,6 @@ import { login, logout } from '../store/user/userActions';
 
 function LoginDialog() {
     const [isOpen, setOpen] = React.useState(false);
-    const [errorMsg, setErrorMsg] = React.useState(null);
     const [credentials, setCredentials] = React.useState({username: '', password: ''});
     const isLoggedIn = useAppSelector((state: RootState) => state.user !== undefined && state.user.accessToken !== '');
     const dispatch = useAppDispatch();
@@ -23,7 +22,6 @@ function LoginDialog() {
 
     const changeCredentials = (username: string, password: string) => {
         setCredentials({username, password});
-        setErrorMsg(null);
     };
 
     const handleLogIn = async (e: any) => {
@@ -76,11 +74,6 @@ function LoginDialog() {
                             onChange={(e) => changeCredentials(credentials.username, e.target.value)}
                         />
                     </form>
-                    {
-                        errorMsg !== null ? (
-                            <Alert severity={'error'}>{errorMsg}</Alert>
-                        ) : (<></>)
-                    }
                 </DialogContent>
                 <DialogActions>
                     <Button variant={'contained'} type={'submit'} form={'loginForm'}>Log in</Button>

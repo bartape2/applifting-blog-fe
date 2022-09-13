@@ -38,13 +38,15 @@ const CreateArticle = () => {
     useEffect(() => {
         if (articleFromStore) {
             if (isLoaded) {
-                setArticle({...article, imageId: articleFromStore.imageId});
+                if (article.imageId !== articleFromStore.imageId) {
+                    setArticle({...article, imageId: articleFromStore.imageId});
+                }
             } else {
                 setArticle(articleFromStore);
                 setLoaded(true);
             }
         }
-    }, [article, articleFromStore, isLoaded]);
+    }, [article, isLoaded, articleFromStore]);
 
     const validate = (): boolean => {
         return validateTitle() && validatePerex() && validateContent();
